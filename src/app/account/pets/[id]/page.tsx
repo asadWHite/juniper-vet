@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { and, desc, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { appointments, doctors, medicalRecords, pets, services, vaccinations } from "@/db/schema";
@@ -14,7 +14,10 @@ export const metadata: Metadata = { title: "Pet profile" };
 export const dynamic = "force-dynamic";
 
 export default async function PetProfilePage({ params }: { params: Promise<{ id: string }> }) {
-  const user = (await getSessionUser())!;
+  const user = await getSessionUser();
+  // The layout also guards this, but layouts and pages render in
+  // parallel — the page must not assume a session exists.
+  if (!user) redirect("/login?next=/account/pets");
   const { id } = await params;
   await ensureSeed();
 

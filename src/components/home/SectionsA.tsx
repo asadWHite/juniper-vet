@@ -30,7 +30,7 @@ export function IntroManifesto() {
         </Reveal>
         <Reveal delay={180} className="mt-12 grid gap-8 sm:grid-cols-2 lg:ml-0">
           <p className="text-[15px] leading-relaxed text-stone">
-            An animal's chart is written in small things: the skipped breakfast, the
+            An animal&rsquo;s chart is written in small things: the skipped breakfast, the
             new sleeping spot, the slower climb onto the sofa. Good veterinary
             medicine begins long before the stethoscope — it begins with attention.
           </p>

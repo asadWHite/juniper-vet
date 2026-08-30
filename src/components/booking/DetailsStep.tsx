@@ -153,7 +153,7 @@ export function DetailsStep({ user, pets, answers, selection, submitting, onSubm
 
         {touched && !valid && (
           <p role="alert" className="mt-5 text-[12px] font-bold uppercase tracking-[0.12em] text-alert">
-            PLEASE FILL NAME, PHONE, A VALID EMAIL — AND YOUR COMPANION'S NAME.
+            PLEASE FILL NAME, PHONE, A VALID EMAIL — AND YOUR COMPANION&rsquo;S NAME.
           </p>
         )}
 

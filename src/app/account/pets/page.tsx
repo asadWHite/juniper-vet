@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { getSessionUser } from "@/lib/auth";
 import { ensureSeed } from "@/lib/seed";
 import { petsForUser } from "@/lib/account-data";
@@ -8,7 +9,10 @@ export const metadata: Metadata = { title: "My pets" };
 export const dynamic = "force-dynamic";
 
 export default async function PetsPage() {
-  const user = (await getSessionUser())!;
+  const user = await getSessionUser();
+  // The layout also guards this, but layouts and pages render in
+  // parallel — the page must not assume a session exists.
+  if (!user) redirect("/login?next=/account/pets");
   await ensureSeed();
   const pets = await petsForUser(user.id).catch(() => []);
 

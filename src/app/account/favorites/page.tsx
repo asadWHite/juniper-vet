@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { getSessionUser } from "@/lib/auth";
@@ -10,7 +11,10 @@ export const metadata: Metadata = { title: "Saved doctors" };
 export const dynamic = "force-dynamic";
 
 export default async function FavoritesPage() {
-  const user = (await getSessionUser())!;
+  const user = await getSessionUser();
+  // The layout also guards this, but layouts and pages render in
+  // parallel — the page must not assume a session exists.
+  if (!user) redirect("/login?next=/account/favorites");
   await ensureSeed();
   const favs = await favoriteDoctorsForUser(user.id).catch(() => []);
 

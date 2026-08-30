@@ -130,7 +130,7 @@ export function TimeStep({
   if (failed) {
     return (
       <div className="max-w-3xl">
-        <h1 className="display-3 mt-6">TIMES COULDN'T LOAD</h1>
+        <h1 className="display-3 mt-6">TIMES COULDN&rsquo;T LOAD</h1>
         <p className="mt-4 text-[14.5px] text-stone">The connection hiccuped — nothing is lost.</p>
         <button type="button" onClick={onRetry} className="btn btn-ghost mt-8">
           TRY AGAIN

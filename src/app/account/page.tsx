@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Bell, Calendar, Heart } from "lucide-react";
 import { getSessionUser } from "@/lib/auth";
@@ -16,7 +17,10 @@ export const metadata: Metadata = { title: "Account overview" };
 export const dynamic = "force-dynamic";
 
 export default async function AccountPage() {
-  const user = (await getSessionUser())!;
+  const user = await getSessionUser();
+  // The layout also guards this, but layouts and pages render in
+  // parallel — the page must not assume a session exists.
+  if (!user) redirect("/login?next=/account");
   await ensureSeed();
   const [pets, appts, reminders, favs] = await Promise.all([
     petsForUser(user.id).catch(() => []),

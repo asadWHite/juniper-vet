@@ -29,7 +29,13 @@ export function SiteNav({ loggedIn }: { loggedIn: boolean }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => setOpen(false), [pathname]);
+  // Close the mobile menu on navigation. Adjusting state during render is the
+  // React-recommended pattern here — an effect would cause a cascading render.
+  const [lastPathname, setLastPathname] = useState(pathname);
+  if (lastPathname !== pathname) {
+    setLastPathname(pathname);
+    setOpen(false);
+  }
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
