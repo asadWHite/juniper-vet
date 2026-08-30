@@ -30,6 +30,23 @@ export async function GET(_req: Request, ctx: Ctx) {
 
 export async function POST(req: Request, ctx: Ctx) {
   const { action } = await ctx.params;
+
+  // `logout` is a side-effect-only action and is sent without a JSON body,
+  // so it must be handled before the body is required.
+  if (action === "logout") {
+    try {
+      const cookieHeader = req.headers.get("cookie") ?? "";
+      const match = cookieHeader.match(new RegExp(`${SESSION_COOKIE}=([^;]+)`));
+      if (match) await destroySession(match[1]);
+    } catch (err) {
+      console.error("[auth/logout]", err);
+      // Still clear the cookie — the client must end up signed out either way.
+    }
+    const res = ok({ ok: true });
+    res.cookies.set(SESSION_COOKIE, "", { path: "/", expires: new Date(0) });
+    return res;
+  }
+
   const data = await body<Record<string, string>>(req);
   if (!data) return fail("Invalid request.", 400);
 
@@ -71,16 +88,6 @@ export async function POST(req: Request, ctx: Ctx) {
         const session = await createSession(u.id);
         const res = ok({ user: { id: u.id, email: u.email, fullName: u.fullName, phone: u.phone } });
         res.cookies.set(sessionCookieValue(session.token, session.expiresAt));
-        return res;
-      }
-
-      // ---------------------------------------------------------- logout
-      case "logout": {
-        const cookieHeader = req.headers.get("cookie") ?? "";
-        const match = cookieHeader.match(new RegExp(`${SESSION_COOKIE}=([^;]+)`));
-        if (match) await destroySession(match[1]);
-        const res = ok({ ok: true });
-        res.cookies.set(SESSION_COOKIE, "", { path: "/", expires: new Date(0) });
         return res;
       }
 

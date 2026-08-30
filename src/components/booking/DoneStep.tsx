@@ -14,7 +14,7 @@ export function DoneStep({ done, user }: { done: DoneAppointment; user: SessionU
         <CheckCircle2 size={17} strokeWidth={1.75} aria-hidden /> STATUS — {done.status.toUpperCase()}
       </p>
       <h1 className="display-2 mt-6">
-        YOU'RE <span className="serif-i font-normal normal-case text-forest">all set.</span>
+        YOU&rsquo;RE <span className="serif-i font-normal normal-case text-forest">all set.</span>
       </h1>
       <p className="mt-6 max-w-md text-[15px] leading-relaxed text-stone">
         The appointment is in the book and the doctor already knows why you are

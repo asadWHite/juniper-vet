@@ -152,7 +152,7 @@ export function BookingTeaser() {
           </h2>
         </Reveal>
         <Reveal delay={170} className="mt-8 max-w-md text-[15px] leading-relaxed text-stone">
-          Not "choose a service, choose a date". A short conversation — species,
+          Not &ldquo;choose a service, choose a date&rdquo;. A short conversation — species,
           age, what you have noticed, how urgent it feels — translated into a
           transparent recommendation, a suitable doctor and a real time slot.
         </Reveal>

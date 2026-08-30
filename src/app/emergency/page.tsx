@@ -44,7 +44,7 @@ export default function EmergencyPage() {
             </Reveal>
             <Reveal delay={100}>
               <p className="mt-10 max-w-lg text-[17px] leading-relaxed text-ink/85">
-                If something feels seriously wrong, don't wait for an online
+                If something feels seriously wrong, don&rsquo;t wait for an online
                 slot. Call us — during opening hours we keep capacity for
                 same-day urgent cases.
               </p>

@@ -36,7 +36,6 @@ export function Reveal({ children, className = "", variant = "up", delay = 0, as
   const Tag = as as "div";
   return (
     <Tag
-      // eslint-disable-next-line react/no-unknown-property
       ref={ref as never}
       id={id}
       className={`${variant === "clip" ? "reveal-clip" : "reveal"} ${className}`}

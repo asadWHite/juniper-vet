@@ -15,7 +15,7 @@ export default function ForgotPasswordPage() {
       kicker="IT HAPPENS"
       title={
         <>
-          LET'S GET YOU
+          LET&rsquo;S GET YOU
           <br />
           <span className="serif-i font-normal normal-case text-forest">back in.</span>
         </>
